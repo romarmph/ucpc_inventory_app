@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAl2WhzCjkmgBC2sW6G5HQysTSzuUcYE4E</string>
+	<key>GCM_SENDER_ID</key>
+	<string>576389729643</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.ucpcInventoryManagementApp</string>
+	<key>PROJECT_ID</key>
+	<string>ucpc-a4821</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ucpc-a4821.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:576389729643:ios:12b3d3924a8ad66fbb502e</string>
+</dict>
+</plist>

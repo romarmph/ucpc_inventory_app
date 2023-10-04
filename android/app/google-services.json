@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "576389729643",
+    "project_id": "ucpc-a4821",
+    "storage_bucket": "ucpc-a4821.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576389729643:android:ed0599647c5445f0bb502e",
+        "android_client_info": {
+          "package_name": "com.example.ucpc_inventory_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTcBB3uN9LPcVHGWahX0QhIbTu9FfElDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
