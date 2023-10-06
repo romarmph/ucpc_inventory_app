@@ -19,13 +19,10 @@ class UCPCInventoryApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'UCPC Inventory',
-      theme: FlexThemeData.light(
-        scheme: FlexScheme.blueWhale,
-      ),
-      darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.blueWhale,
-      ),
-      themeMode: ThemeMode.dark,
+      navigatorKey: navigatorKey,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.system,
       initialRoute: RouteNames.login,
       routes: routes,
     );
