@@ -3,6 +3,7 @@ class Routes {
   static const String login = '/login';
 
   static const String inventory = '/inventory';
+  static const String addProduct = '/inventory/add-product';
 
   static const String suppliers = '/suppliers';
 
