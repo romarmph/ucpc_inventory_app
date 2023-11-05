@@ -1,26 +1,27 @@
 import 'package:ucpc_inventory_management_app/exports.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  const AuthService._();
+
+  static const AuthService _instance = AuthService._();
+  static AuthService get instance => _instance;
+
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Stream<User?> get user => _auth.authStateChanges();
 
-  Future<User?> signInWithEmailAndPassword({
+  Future signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
     try {
-      final UserCredential userCredential = await _auth
-          .signInWithEmailAndPassword(email: email, password: password);
-      return userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        return null;
-      } else if (e.code == 'wrong-password') {
-        return null;
-      }
+      await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException {
+      rethrow;
     }
-    return null;
   }
 
   Future<void> signOut() async {

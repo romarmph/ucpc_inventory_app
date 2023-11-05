@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
 
 class LoginFormProvider {
+  LoginFormProvider(this.ref);
+  final ProviderRef ref;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool isObscure = true;
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -20,15 +23,17 @@ class LoginFormProvider {
     return null;
   }
 
-  void submit() {
-    if (formKey.currentState!.validate()) {
-      print('Form is valid');
-    } else {
-      print('Form is invalid');
-    }
+  void reset() {
+    emailController.clear();
+    passwordController.clear();
+    isObscure = true;
   }
 }
 
 final loginFormProvider = Provider<LoginFormProvider>((ref) {
-  return LoginFormProvider();
+  return LoginFormProvider(ref);
+});
+
+final passwordVisibilityProvider = StateProvider<bool>((ref) {
+  return true;
 });

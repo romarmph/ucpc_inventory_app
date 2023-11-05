@@ -18,12 +18,13 @@ class UCPCInventoryApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'UCPC Inventory',
       navigatorKey: navigatorKey,
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
-      initialRoute: RouteNames.login,
+      initialRoute: Routes.home,
       routes: routes,
     );
   }
