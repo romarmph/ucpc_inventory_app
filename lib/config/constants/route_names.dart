@@ -4,6 +4,8 @@ class Routes {
 
   static const String inventory = '/inventory';
   static const String addProduct = '/inventory/add-product';
+  static const String barcodeScanner = '/inventory/barcode-scanner';
+  static const String productView = '/inventory/product-view';
 
   static const String suppliers = '/suppliers';
 

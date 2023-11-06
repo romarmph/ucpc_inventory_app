@@ -9,12 +9,18 @@ class ProductDatabase {
   static final _firestore = FirebaseFirestore.instance;
   static final _productsRef = _firestore.collection('products');
 
-  Future<void> addProduct(Product product) async {
-    await _productsRef.add(product.toJson());
+  Future<String> addProduct(Product product) async {
+    return await _productsRef.add(product.toJson()).then((value) => value.id);
   }
 
   Future<void> updateProduct(Product product) async {
     await _productsRef.doc(product.id).update(product.toJson());
+  }
+
+  Future<void> addImageUrl(String url, String productId) async {
+    await _productsRef.doc(productId).update({
+      'imageUrls': FieldValue.arrayUnion([url])
+    });
   }
 
   Future<void> deleteProduct(String id) async {
@@ -24,8 +30,8 @@ class ProductDatabase {
   Stream<List<Product>> getProducts() {
     return _productsRef
         .where('isHidden', isEqualTo: false)
+        .orderBy('isPopular', descending: true)
         .orderBy('name')
-        .orderBy('isPopular')
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((product) {

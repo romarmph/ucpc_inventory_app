@@ -11,6 +11,8 @@ export 'package:flex_color_scheme/flex_color_scheme.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:quickalert/quickalert.dart';
 export 'package:cached_network_image/cached_network_image.dart';
+export 'package:image_picker/image_picker.dart';
+export 'package:firebase_storage/firebase_storage.dart';
 
 ///
 ///
@@ -58,6 +60,9 @@ export 'package:ucpc_inventory_management_app/riverpod/auth/auth_service.riverpo
 // ? ---------------  Database
 export 'package:ucpc_inventory_management_app/riverpod/database/products.riverpod.dart';
 
+// ? ---------------  Inventory
+export 'package:ucpc_inventory_management_app/riverpod/inventory/add_form.riverpod.dart';
+
 ///
 ///
 /// ! ---------------------------------------------------- SERVICES
@@ -65,12 +70,16 @@ export 'package:ucpc_inventory_management_app/riverpod/database/products.riverpo
 ///
 
 export 'package:ucpc_inventory_management_app/services/auth/auth.service.dart';
+export 'package:ucpc_inventory_management_app/services/image_picker.service.dart';
+export 'package:ucpc_inventory_management_app/services/storage.service.dart';
 
 ///
 ///
 /// ! ---------------------------------------------------- UTILS
 ///
 ///
+
+export 'package:ucpc_inventory_management_app/utils/add_product_form_validator.dart';
 
 ///
 ///
@@ -94,6 +103,12 @@ export 'package:ucpc_inventory_management_app/views/home/widgets/menu_button_car
 // ? ---------------  Inventory
 export 'package:ucpc_inventory_management_app/views/inventory/invetory_home.view.dart';
 export 'package:ucpc_inventory_management_app/views/inventory/inventory_product_add.view.dart';
+export 'package:ucpc_inventory_management_app/views/inventory/inventory_update.dart';
+export 'package:ucpc_inventory_management_app/views/inventory/widget/scanner_widget.dart';
+export 'package:ucpc_inventory_management_app/views/inventory/widget/product_image_card.dart';
+export 'package:ucpc_inventory_management_app/views/inventory/widget/empty_state_button.dart';
+export 'package:ucpc_inventory_management_app/views/inventory/view_product.dart';
+export 'package:ucpc_inventory_management_app/views/inventory/widget/selected_counter.dart';
 
 // ? ---------------  Suppliers
 export 'package:ucpc_inventory_management_app/views/suppliers/suppliers_home.view.dart';

@@ -43,6 +43,9 @@ dependencies:
   google_fonts: ^6.1.0
   quickalert: ^1.0.2
   cached_network_image: ^3.3.0
+  image_picker: ^1.0.4
+  mobile_scanner: ^3.5.2
+  firebase_storage: ^11.4.1
 
 dev_dependencies:
   flutter_test:

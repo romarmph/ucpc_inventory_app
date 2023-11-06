@@ -8,7 +8,8 @@ class AuthService {
 
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Stream<User?> get user => _auth.authStateChanges();
+  User get currentUser => _auth.currentUser!;
+  Stream<User?> get authState => _auth.authStateChanges();
 
   Future signInWithEmailAndPassword({
     required String email,

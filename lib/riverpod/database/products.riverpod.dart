@@ -5,5 +5,3 @@ final productsStreamProvider = StreamProvider<List<Product>>(
 );
 
 final productSearchQueryProvider = StateProvider<String>((ref) => '');
-
-// Try to implement infinite scroll

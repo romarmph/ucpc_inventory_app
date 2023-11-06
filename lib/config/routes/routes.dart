@@ -9,4 +9,6 @@ final Map<String, Widget Function(BuildContext)> myRoutes = {
   Routes.suppliers: (context) => const SuppliersHomeView(),
   Routes.users: (context) => const UsersHomeView(),
   Routes.addProduct: (context) => const ProductAddView(),
+  Routes.barcodeScanner: (context) => const BarcodeScanner(),
+  Routes.productView: (context) => const ProductView(),
 };
