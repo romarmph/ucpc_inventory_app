@@ -32,12 +32,16 @@ export 'package:ucpc_inventory_management_app/config/theme/padding.dart';
 export 'package:ucpc_inventory_management_app/config/theme/themes.dart';
 export 'package:ucpc_inventory_management_app/config/theme/color_scheme.dart';
 
+// ? ---------------  enums
+export 'package:ucpc_inventory_management_app/config/enums/roles.dart';
+
 ///
 ///
 /// ! ---------------------------------------------------- DATABASE
 ///
 ///
 export 'package:ucpc_inventory_management_app/database/product.database.dart';
+export 'package:ucpc_inventory_management_app/database/user.database.dart';
 
 ///
 ///
@@ -46,6 +50,9 @@ export 'package:ucpc_inventory_management_app/database/product.database.dart';
 ///
 
 export 'package:ucpc_inventory_management_app/models/product.model.dart';
+export 'package:ucpc_inventory_management_app/models/user.model.dart';
+export 'package:ucpc_inventory_management_app/models/supplier.model.dart';
+export 'package:ucpc_inventory_management_app/models/product_category.model.dart';
 
 ///
 ///
@@ -118,3 +125,5 @@ export 'package:ucpc_inventory_management_app/views/orders/orders_home.view.dart
 
 // ? ---------------  Users
 export 'package:ucpc_inventory_management_app/views/users/users_home.view.dart';
+export 'package:ucpc_inventory_management_app/views/users/user_add.view.dart';
+export 'package:ucpc_inventory_management_app/views/users/user_view.view.dart';

@@ -158,17 +158,34 @@ class _ProductViewState extends ConsumerState<ProductView> {
             ),
             Visibility(
               visible: _isReadOnly,
-              child: TextButton.icon(
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(12),
-                ),
-                onPressed: () {
-                  setState(() {
-                    _isReadOnly = false;
-                  });
+              child: PopupMenuButton(
+                itemBuilder: (context) {
+                  return const [
+                    PopupMenuItem(
+                      value: 'edit',
+                      child: ListTile(
+                        title: Text('Edit'),
+                        leading: Icon(Icons.edit_rounded),
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'delete',
+                      child: ListTile(
+                        title: Text('Delete'),
+                        leading: Icon(Icons.delete_rounded),
+                      ),
+                    ),
+                  ];
                 },
-                label: const Text('Edit'),
-                icon: const Icon(Icons.edit_rounded),
+                onSelected: (value) {
+                  if (value == 'edit') {
+                    setState(() {
+                      _isReadOnly = false;
+                    });
+                  } else {
+                    _showDeleteConfirmation();
+                  }
+                },
               ),
             ),
             const SizedBox(width: 12),
@@ -425,10 +442,29 @@ class _ProductViewState extends ConsumerState<ProductView> {
     );
   }
 
+  void _showDeleteConfirmation() async {
+    final result = await QuickAlert.show(
+      context: context,
+      type: QuickAlertType.confirm,
+      title: 'Are you sure?',
+      text: 'Do you want to delete this product?',
+      onConfirmBtnTap: () async {
+        Navigator.of(context).pop(true);
+      },
+    );
+
+    if (result == null) {
+      return;
+    }
+
+    await ProductDatabase.instance.deleteProduct(widget.product.id!);
+    _pop();
+  }
+
   void _showImageRemoveConfirmationDialog(String url) async {
     await QuickAlert.show(
       context: context,
-      type: QuickAlertType.confirm,
+      type: QuickAlertType.warning,
       title: 'Are you sure?',
       text: 'Do you want to remove this image?',
       onConfirmBtnTap: () async {

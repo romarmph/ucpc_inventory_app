@@ -76,6 +76,21 @@ class _HomePageState extends ConsumerState<HomePage> {
       drawer: SafeArea(
         child: Drawer(
           width: deviceWidth * 0.8,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Spacer(),
+                FilledButton(
+                  onPressed: () {
+                    ref.read(authProvider).signOut();
+                  },
+                  child: const Text('Logout'),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
       endDrawer: SafeArea(

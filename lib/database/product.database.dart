@@ -14,7 +14,6 @@ class ProductDatabase {
   }
 
   Future<void> updateProduct(Product product) async {
-    print(product.id);
     await _productsRef.doc(product.id).update(product.toJson());
   }
 

@@ -1,0 +1,4 @@
+enum UserRoles {
+  admin,
+  employee,
+}
