@@ -23,4 +23,13 @@ class StorageService {
       rethrow;
     }
   }
+
+  Future<void> deleteImage(String url) async {
+    try {
+      final Reference ref = _storage.refFromURL(url);
+      await ref.delete();
+    } on Exception {
+      rethrow;
+    }
+  }
 }

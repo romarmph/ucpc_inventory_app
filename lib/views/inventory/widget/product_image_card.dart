@@ -1,16 +1,21 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:ucpc_inventory_management_app/exports.dart';
 
 class ProductImageCard extends StatelessWidget {
   const ProductImageCard({
     super.key,
     required this.url,
     required this.onPressed,
+    this.isNetworkImage = false,
+    this.isReadOnly = false,
   });
 
   final String url;
   final VoidCallback onPressed;
+  final bool isNetworkImage;
+  final bool isReadOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -61,21 +66,35 @@ class ProductImageCard extends StatelessWidget {
               color: Colors.grey[100]!,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Image.file(
-              File(url),
-              fit: BoxFit.cover,
-            ),
+            child: isNetworkImage
+                ? CachedNetworkImage(
+                    imageUrl: url,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) => const Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                  )
+                : Image.file(
+                    File(url),
+                    fit: BoxFit.cover,
+                  ),
           ),
           Positioned(
             top: 0,
             right: 0,
-            child: IconButton(
-              onPressed: onPressed,
-              icon: CircleAvatar(
-                backgroundColor: Colors.white54,
-                child: Icon(
-                  Icons.close,
-                  color: Colors.grey[800],
+            child: Visibility(
+              visible: !isReadOnly,
+              child: IconButton(
+                onPressed: onPressed,
+                icon: CircleAvatar(
+                  backgroundColor: Colors.white54,
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.grey[800],
+                  ),
                 ),
               ),
             ),

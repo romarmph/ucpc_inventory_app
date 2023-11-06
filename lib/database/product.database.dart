@@ -14,6 +14,7 @@ class ProductDatabase {
   }
 
   Future<void> updateProduct(Product product) async {
+    print(product.id);
     await _productsRef.doc(product.id).update(product.toJson());
   }
 
@@ -25,6 +26,11 @@ class ProductDatabase {
 
   Future<void> deleteProduct(String id) async {
     await _productsRef.doc(id).delete();
+  }
+
+  Future<Product> getProductById(String id) async {
+    final product = await _productsRef.doc(id).get();
+    return Product.fromJson(product.data()!, product.id);
   }
 
   Stream<List<Product>> getProducts() {

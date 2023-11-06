@@ -173,7 +173,7 @@ class _InventoryHomeViewState extends ConsumerState<InventoryHomeView> {
                               if (_isSelectMode) {
                                 _addProductToSelectedList(productList[index]);
                               } else {
-                                _viewProduct(productList[index].id!);
+                                _viewProduct(productList[index]);
                               }
                             },
                             child: ProductCard(
@@ -224,11 +224,13 @@ class _InventoryHomeViewState extends ConsumerState<InventoryHomeView> {
     }
   }
 
-  void _viewProduct(String productId) {
-    Navigator.pushNamed(
-      navigatorKey.currentContext!,
-      Routes.productView,
-      arguments: productId,
+  void _viewProduct(Product product) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ProductView(
+          product: product,
+        ),
+      ),
     );
   }
 }
