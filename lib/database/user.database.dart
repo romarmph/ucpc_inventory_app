@@ -26,7 +26,7 @@ class UserDatabase {
       );
     }
 
-    await _createUser(
+    final credentials = await _createUser(
       user.email,
       password,
     );
@@ -46,11 +46,11 @@ class UserDatabase {
       );
     }
 
-    await _userRef.add(user.toJson());
+    await _userRef.doc(credentials.user!.uid).set(user.toJson());
   }
 
-  Future _createUser(String email, String password) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
+  Future<UserCredential> _createUser(String email, String password) async {
+    return await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -95,9 +95,14 @@ class UserDatabase {
     await _userRef.doc(id).delete();
   }
 
-  Future<UserModel> getUserById(String id) async {
-    final user = await _userRef.doc(id).get();
-    return UserModel.fromJson(user.data()!, user.id);
+  Stream<UserModel> getUserById(String id) {
+    try {
+      return _userRef.doc(id).snapshots().map((snapshot) {
+        return UserModel.fromJson(snapshot.data()!, snapshot.id);
+      });
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Stream<List<UserModel>> getUsers() {

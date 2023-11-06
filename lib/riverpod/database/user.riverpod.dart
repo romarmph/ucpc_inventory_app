@@ -1,10 +1,10 @@
 import 'package:ucpc_inventory_management_app/exports.dart';
 
-final getUserFutureProvider = FutureProvider.family<UserModel, String>((
+final getUserByIdStream = StreamProvider.family<UserModel, String>((
   ref,
   id,
-) async {
-  return await UserDatabase.instance.getUserById(id);
+) {
+  return UserDatabase.instance.getUserById(id);
 });
 
 final getUsersStreamProvider = StreamProvider<List<UserModel>>(
