@@ -34,7 +34,6 @@ class ProductDatabase {
 
   Stream<List<Product>> getProducts() {
     return _productsRef
-        .where('isHidden', isEqualTo: false)
         .orderBy('isPopular', descending: true)
         .orderBy('name')
         .snapshots()

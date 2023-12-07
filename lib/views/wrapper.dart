@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
+import 'package:ucpc_inventory_management_app/riverpod/database/user.riverpod.dart';
 
 class Wrapper extends ConsumerWidget {
   const Wrapper({super.key});
@@ -12,6 +13,7 @@ class Wrapper extends ConsumerWidget {
               ref.watch(loginFormProvider).reset();
               return const LoginPage();
             } else {
+              ref.watch(getUserByIdStream(user.uid));
               return const HomePage();
             }
           },

@@ -137,6 +137,7 @@ class _UserViewState extends ConsumerState<UserView> {
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
+                    enabled: false,
                     readOnly: _isViewMode,
                     validator: (value) {
                       if (value != null && value.isEmpty) {

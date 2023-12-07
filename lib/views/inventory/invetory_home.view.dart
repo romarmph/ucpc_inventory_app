@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
+import 'package:ucpc_inventory_management_app/riverpod/database/user.riverpod.dart';
 
 class InventoryHomeView extends ConsumerStatefulWidget {
   const InventoryHomeView({super.key});
@@ -128,6 +129,16 @@ class _InventoryHomeViewState extends ConsumerState<InventoryHomeView> {
                   data: (products) {
                     List<Product> productList = products;
                     final query = ref.watch(productSearchQueryProvider);
+                    final user = AuthService.instance.currentUser;
+                    final currentUser = ref.watch(userByIdProvider(user.uid));
+
+                    if (currentUser!.role == UserRoles.employee) {
+                      productList = productList
+                          .where((element) => !element.isHidden)
+                          .toList();
+                    }
+
+                    print(productList.length);
 
                     if (query.isNotEmpty) {
                       productList = products
@@ -144,7 +155,9 @@ class _InventoryHomeViewState extends ConsumerState<InventoryHomeView> {
                           const Text('No products found.'),
                           const SizedBox(height: 12),
                           FilledButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, Routes.addProduct);
+                            },
                             child: const Text('Add Product'),
                           ),
                         ],

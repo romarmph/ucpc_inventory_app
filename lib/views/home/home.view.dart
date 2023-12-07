@@ -20,12 +20,6 @@ class _HomePageState extends ConsumerState<HomePage> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: const Text('UCPC Inventory'),
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu_rounded),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_rounded),
