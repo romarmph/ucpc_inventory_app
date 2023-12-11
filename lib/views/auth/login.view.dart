@@ -6,101 +6,115 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: SafeArea(
-          child: Padding(
-            padding: AppPaddings.scaffoldPadding,
-            child: Form(
-              key: ref.watch(loginFormProvider).formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(
-                    height: 100.0,
-                  ),
-                  Image.asset(
-                    "assets/logo.png",
-                    height: 100,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  const Text(
-                    "UCPC Inventory",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 32.0,
-                  ),
-                  const Text(
-                    "Welcome back...",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w200,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  TextFormField(
-                    controller: ref.watch(loginFormProvider).emailController,
-                    decoration: const InputDecoration(
-                      hintText: "Email",
-                    ),
-                    validator: ref.watch(loginFormProvider).validateEmail,
-                  ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  TextFormField(
-                    controller: ref.watch(loginFormProvider).passwordController,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          ref.read(passwordVisibilityProvider.notifier).update(
-                                (state) => !state,
-                              );
-                        },
-                        icon: _renderVisibilityIcon(
-                          ref.watch(passwordVisibilityProvider),
+          child: Center(
+            child: SizedBox(
+              width: width > 500 ? 500 : width,
+              child: Padding(
+                padding: AppPaddings.scaffoldPadding,
+                child: Form(
+                  key: ref.watch(loginFormProvider).formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(
+                        height: 100.0,
+                      ),
+                      Image.asset(
+                        "assets/logo.png",
+                        height: 100,
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      const Text(
+                        "UCPC Inventory",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                    obscureText: ref.watch(passwordVisibilityProvider),
-                    validator: ref.watch(loginFormProvider).validatePassword,
+                      const SizedBox(
+                        height: 32.0,
+                      ),
+                      const Text(
+                        "Welcome back...",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w200,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      TextFormField(
+                        controller:
+                            ref.watch(loginFormProvider).emailController,
+                        decoration: const InputDecoration(
+                          hintText: "Email",
+                        ),
+                        validator: ref.watch(loginFormProvider).validateEmail,
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      TextFormField(
+                        controller:
+                            ref.watch(loginFormProvider).passwordController,
+                        decoration: InputDecoration(
+                          hintText: "Password",
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              ref
+                                  .read(passwordVisibilityProvider.notifier)
+                                  .update(
+                                    (state) => !state,
+                                  );
+                            },
+                            icon: _renderVisibilityIcon(
+                              ref.watch(passwordVisibilityProvider),
+                            ),
+                          ),
+                        ),
+                        obscureText: ref.watch(passwordVisibilityProvider),
+                        validator:
+                            ref.watch(loginFormProvider).validatePassword,
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      FilledButton(
+                        onPressed: () {
+                          final login =
+                              ref.watch(loginFormProvider).emailController.text;
+                          final password = ref
+                              .watch(loginFormProvider)
+                              .passwordController
+                              .text;
+                          if (ref
+                              .watch(loginFormProvider)
+                              .formKey
+                              .currentState!
+                              .validate()) {
+                            _handleLogin(
+                              login,
+                              password,
+                            );
+                          }
+                        },
+                        child: const Text(
+                          "Login",
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  FilledButton(
-                    onPressed: () {
-                      final login =
-                          ref.watch(loginFormProvider).emailController.text;
-                      final password =
-                          ref.watch(loginFormProvider).passwordController.text;
-                      if (ref
-                          .watch(loginFormProvider)
-                          .formKey
-                          .currentState!
-                          .validate()) {
-                        _handleLogin(
-                          login,
-                          password,
-                        );
-                      }
-                    },
-                    child: const Text(
-                      "Login",
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),

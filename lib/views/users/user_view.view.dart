@@ -34,6 +34,8 @@ class _UserViewState extends ConsumerState<UserView> {
 
   @override
   Widget build(BuildContext context) {
+    bool isCurrentUser = AuthService.instance.currentUser.uid == widget.user.id;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_isViewMode ? 'View User' : 'Edit User'),
@@ -50,24 +52,34 @@ class _UserViewState extends ConsumerState<UserView> {
                     _previousRole = _dropdownController.text;
                   });
                 } else {
-                  QuickAlert.show(
-                    context: context,
-                    type: QuickAlertType.confirm,
-                    title: 'Delete User',
-                    text: 'Are you sure you want to delete this user?',
-                    onConfirmBtnTap: () async {
-                      Navigator.of(context).pop(true);
-                      _showLoading();
-                      try {
-                        await UserDatabase.instance.deleteUser(widget.user.id!);
-                        _pop();
-                        _showSuccess();
-                      } on Exception {
-                        _pop();
-                        _showError('Error deleting user');
-                      }
-                    },
-                  );
+                  if (!isCurrentUser) {
+                    QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.confirm,
+                      title: 'Delete User',
+                      text: 'Are you sure you want to delete this user?',
+                      onConfirmBtnTap: () async {
+                        Navigator.of(context).pop(true);
+                        _showLoading();
+                        try {
+                          await UserDatabase.instance
+                              .deleteUser(widget.user.id!);
+                          _pop();
+                          _showSuccess();
+                        } on Exception {
+                          _pop();
+                          _showError('Error deleting user');
+                        }
+                      },
+                    );
+                  } else {
+                    QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.error,
+                      title: 'Error',
+                      text: 'You cannot delete your own account',
+                    );
+                  }
                 }
               },
               itemBuilder: (context) {

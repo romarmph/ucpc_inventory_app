@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
 import 'package:ucpc_inventory_management_app/riverpod/database/user.riverpod.dart';
@@ -138,8 +140,6 @@ class _InventoryHomeViewState extends ConsumerState<InventoryHomeView> {
                           .toList();
                     }
 
-                    print(productList.length);
-
                     if (query.isNotEmpty) {
                       productList = products
                           .where((prod) => prod.name
@@ -164,14 +164,26 @@ class _InventoryHomeViewState extends ConsumerState<InventoryHomeView> {
                       );
                     }
 
-                    return GridView.builder(
-                      gridDelegate:
+                    dynamic gridDeligate =
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 400,
+                      childAspectRatio: 0.8,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                    );
+
+                    if (Platform.isAndroid) {
+                      gridDeligate =
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: 0.7,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                      ),
+                        childAspectRatio: 1 / 1.5,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                      );
+                    }
+
+                    return GridView.builder(
+                      gridDelegate: gridDeligate,
                       itemCount: productList.length,
                       itemBuilder: (context, index) {
                         return Card(

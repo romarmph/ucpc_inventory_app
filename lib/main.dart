@@ -23,7 +23,7 @@ class UCPCInventoryApp extends ConsumerWidget {
       navigatorKey: navigatorKey,
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       initialRoute: Routes.home,
       routes: myRoutes,
     );

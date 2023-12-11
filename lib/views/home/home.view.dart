@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
 import 'package:ucpc_inventory_management_app/riverpod/database/user.riverpod.dart';
@@ -16,18 +18,19 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final currentUser = ref.watch(authProvider).currentUser.uid;
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         title: const Text('UCPC Inventory'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_rounded),
-            onPressed: () {
-              _scaffoldKey.currentState!.openEndDrawer();
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.notifications_rounded),
+        //     onPressed: () {
+        //       _scaffoldKey.currentState!.openEndDrawer();
+        //     },
+        //   ),
+        // ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -39,11 +42,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                     return Expanded(
                       child: GridView(
                         gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          childAspectRatio: 1 / 1,
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 400,
+                          childAspectRatio: 2 / 1,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
                         ),
                         children: [
                           const MainMenuButtonCard(
@@ -51,16 +54,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                             icon: Icons.inventory_rounded,
                             route: Routes.inventory,
                           ),
-                          const MainMenuButtonCard(
-                            title: 'Suppliers',
-                            icon: Icons.business_center_rounded,
-                            route: Routes.suppliers,
-                          ),
-                          const MainMenuButtonCard(
-                            title: 'Orders',
-                            icon: Icons.shopping_cart_rounded,
-                            route: Routes.orders,
-                          ),
+                          // const MainMenuButtonCard(
+                          //   title: 'Suppliers',
+                          //   icon: Icons.business_center_rounded,
+                          //   route: Routes.suppliers,
+                          // ),
+                          // const MainMenuButtonCard(
+                          //   title: 'Orders',
+                          //   icon: Icons.shopping_cart_rounded,
+                          //   route: Routes.orders,
+                          // ),
                           Visibility(
                             visible: user.role == UserRoles.admin,
                             child: const MainMenuButtonCard(
@@ -87,7 +90,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       ),
       drawer: SafeArea(
         child: Drawer(
-          width: deviceWidth * 0.8,
+          width: deviceWidth > 500 ? 300 : deviceWidth * 0.8,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -105,11 +108,11 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         ),
       ),
-      endDrawer: SafeArea(
-        child: Drawer(
-          width: deviceWidth * 0.8,
-        ),
-      ),
+      // endDrawer: SafeArea(
+      //   child: Drawer(
+      //     width: deviceWidth > 500 ? 300 : deviceWidth * 0.8,
+      //   ),
+      // ),
     );
   }
 }
