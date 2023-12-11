@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
 import 'package:ucpc_inventory_management_app/riverpod/database/user.riverpod.dart';
@@ -165,20 +166,20 @@ class _InventoryHomeViewState extends ConsumerState<InventoryHomeView> {
                     }
 
                     dynamic gridDeligate =
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 400,
-                      childAspectRatio: 0.8,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1 / 1.5,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
                     );
 
-                    if (Platform.isAndroid) {
+                    if (kIsWeb) {
                       gridDeligate =
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1 / 1.5,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 400,
+                        childAspectRatio: 0.8,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
                       );
                     }
 
