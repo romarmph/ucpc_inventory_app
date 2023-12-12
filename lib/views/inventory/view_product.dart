@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
 
@@ -329,23 +330,31 @@ class _ProductViewState extends ConsumerState<ProductView> {
                           fontSize: 16,
                         ),
                       ),
+                      const SizedBox(width: 12),
+                      kIsWeb
+                          ? const Text(
+                              '(Adding images is not supported on web)')
+                          : Container(),
                       const Spacer(),
                       Visibility(
                         visible: !_isReadOnly,
                         child: TextButton.icon(
-                          onPressed: () async {
-                            final imagePicker = ImagePickerService.instance;
+                          onPressed: kIsWeb
+                              ? null
+                              : () async {
+                                  final imagePicker =
+                                      ImagePickerService.instance;
 
-                            final image = await imagePicker.pickImage();
+                                  final image = await imagePicker.pickImage();
 
-                            if (image == null) {
-                              return;
-                            }
+                                  if (image == null) {
+                                    return;
+                                  }
 
-                            setState(() {
-                              _imageList.add(image.path);
-                            });
-                          },
+                                  setState(() {
+                                    _imageList.add(image.path);
+                                  });
+                                },
                           icon: const Icon(Icons.add),
                           label: const Text('Add Image'),
                           style: TextButton.styleFrom(
@@ -372,20 +381,23 @@ class _ProductViewState extends ConsumerState<ProductView> {
                               visible: !_isReadOnly,
                               child: ImagesEmptyStateAddButton(
                                 constraints: constraints,
-                                onTap: () async {
-                                  final imagePicker =
-                                      ImagePickerService.instance;
+                                onTap: kIsWeb
+                                    ? null
+                                    : () async {
+                                        final imagePicker =
+                                            ImagePickerService.instance;
 
-                                  final image = await imagePicker.pickImage();
+                                        final image =
+                                            await imagePicker.pickImage();
 
-                                  if (image == null) {
-                                    return;
-                                  }
+                                        if (image == null) {
+                                          return;
+                                        }
 
-                                  setState(() {
-                                    _imageList.add(image.path);
-                                  });
-                                },
+                                        setState(() {
+                                          _imageList.add(image.path);
+                                        });
+                                      },
                               ),
                             );
                           }

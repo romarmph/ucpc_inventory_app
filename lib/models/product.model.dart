@@ -58,7 +58,7 @@ class Product {
       description: json['description'],
       imageUrls: json['imageUrls'],
       supplierId: json['supplierId'],
-      price: json['price'],
+      price: json['price'].toDouble(),
       quantity: json['quantity'],
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],

@@ -5,11 +5,11 @@ class ImagesEmptyStateAddButton extends ConsumerWidget {
   const ImagesEmptyStateAddButton({
     super.key,
     required this.constraints,
-    required this.onTap,
+    this.onTap,
   });
 
   final BoxConstraints constraints;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

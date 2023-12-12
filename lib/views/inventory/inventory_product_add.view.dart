@@ -1,5 +1,6 @@
-import 'dart:io';
+import 'dart:io' if (dart.library.html) 'dart:html';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
 
@@ -83,8 +84,11 @@ class _ProductAddViewState extends ConsumerState<ProductAddView> {
   Future<void> _uploadIMages(String productId) async {
     final storage = StorageService.instance;
 
-    for (final image in _imageList) {
-      final url = await storage.uploadImage(File(image), productId);
+    for (File image in _imageList) {
+      File imageFile = File(image.path);
+
+      final url = await storage.uploadImage(imageFile, productId);
+
       await ProductDatabase.instance.addImageUrl(url, productId);
     }
   }
@@ -251,21 +255,28 @@ class _ProductAddViewState extends ConsumerState<ProductAddView> {
                           fontSize: 16,
                         ),
                       ),
+                      const SizedBox(width: 12),
+                      kIsWeb
+                          ? const Text(
+                              '(Adding images is not supported on web)')
+                          : Container(),
                       const Spacer(),
                       FilledButton.icon(
-                        onPressed: () async {
-                          final imagePicker = ImagePickerService.instance;
+                        onPressed: kIsWeb
+                            ? null
+                            : () async {
+                                final imagePicker = ImagePickerService.instance;
 
-                          final image = await imagePicker.pickImage();
+                                final image = await imagePicker.pickImage();
 
-                          if (image == null) {
-                            return;
-                          }
+                                if (image == null) {
+                                  return;
+                                }
 
-                          setState(() {
-                            _imageList.add(image.path);
-                          });
-                        },
+                                setState(() {
+                                  _imageList.add(image);
+                                });
+                              },
                         icon: const Icon(Icons.add),
                         label: const Text('Add Image'),
                         style: FilledButton.styleFrom(
@@ -289,19 +300,23 @@ class _ProductAddViewState extends ConsumerState<ProductAddView> {
                           if (_imageList.isEmpty) {
                             return ImagesEmptyStateAddButton(
                               constraints: constraints,
-                              onTap: () async {
-                                final imagePicker = ImagePickerService.instance;
+                              onTap: kIsWeb
+                                  ? null
+                                  : () async {
+                                      final imagePicker =
+                                          ImagePickerService.instance;
 
-                                final image = await imagePicker.pickImage();
+                                      final image =
+                                          await imagePicker.pickImage();
 
-                                if (image == null) {
-                                  return;
-                                }
+                                      if (image == null) {
+                                        return;
+                                      }
 
-                                setState(() {
-                                  _imageList.add(image.path);
-                                });
-                              },
+                                      setState(() {
+                                        _imageList.add(image.path);
+                                      });
+                                    },
                             );
                           }
                           return ProductImageCard(

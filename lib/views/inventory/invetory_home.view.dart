@@ -219,6 +219,8 @@ class _InventoryHomeViewState extends ConsumerState<InventoryHomeView> {
                     );
                   },
                   error: (error, stackTrace) {
+                    print(error.toString());
+                    print(stackTrace);
                     return Center(
                       child: Text(
                         error.toString(),
