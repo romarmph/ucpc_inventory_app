@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
 
@@ -163,6 +164,17 @@ class ProductCard extends ConsumerWidget {
               ),
             ),
           ],
+        ),
+      );
+    }
+
+    if (kIsWeb) {
+      return Expanded(
+        child: Image.network(
+          product.imageUrls.first,
+          fit: BoxFit.cover,
+          height: constraints.maxHeight * 0.5,
+          width: double.infinity,
         ),
       );
     }

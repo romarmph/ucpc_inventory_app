@@ -1,4 +1,4 @@
-import 'dart:io' if (dart.library.html) 'dart:html';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -85,9 +85,7 @@ class _ProductAddViewState extends ConsumerState<ProductAddView> {
     final storage = StorageService.instance;
 
     for (File image in _imageList) {
-      File imageFile = File(image.path);
-
-      final url = await storage.uploadImage(imageFile, productId);
+      final url = await storage.uploadImage(image, productId);
 
       await ProductDatabase.instance.addImageUrl(url, productId);
     }

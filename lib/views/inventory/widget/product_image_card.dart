@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ucpc_inventory_management_app/exports.dart';
 
@@ -39,10 +40,12 @@ class ProductImageCard extends StatelessWidget {
                   child: Column(
                     children: [
                       Expanded(
-                        child: Image.file(
-                          File(url),
-                          fit: BoxFit.cover,
-                        ),
+                        child: kIsWeb
+                            ? Image.network(url)
+                            : Image.file(
+                                File(url),
+                                fit: BoxFit.cover,
+                              ),
                       ),
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(),
